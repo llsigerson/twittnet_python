@@ -11,8 +11,8 @@ def userinfo_to_df(tweepy_output):
     df= pd.DataFrame(jsons)
     # set the indices to be the unique user ids
     df.index = df.id_str
+    df=df.drop(columns="id_str")
     df.created_at = list(map(lambda x: datetime.datetime.strptime(x, "%a %b %d %H:%M:%S %z %Y"), df.created_at))
 
     return df
 
-users = userinfo_to_df(api.lookup_users(screen_names=["jonfavs", "llsigerson"]))
